@@ -1,6 +1,9 @@
+localStorage.clear();
+
 const employees = [
   {
     id: 1,
+    name: "John Doe",
     password: "1234",
     email: "employee1@example.com",
     tasks: [
@@ -35,9 +38,11 @@ const employees = [
         failed: false,
       },
     ],
+    taskCount: { active: 2, completed: 1, new_task: 2, failed: 0 },
   },
   {
     id: 2,
+    name: "Jane Smith",
     password: "1234",
     email: "employee2@example.com",
     tasks: [
@@ -62,9 +67,11 @@ const employees = [
         failed: false,
       },
     ],
+    taskCount: { active: 1, completed: 1, new_task: 1, failed: 0 },
   },
   {
     id: 3,
+    name: "Mike Johnson",
     password: "1234",
     email: "employee3@example.com",
     tasks: [
@@ -89,9 +96,11 @@ const employees = [
         failed: false,
       },
     ],
+    taskCount: { active: 1, completed: 1, new_task: 1, failed: 0 },
   },
   {
     id: 4,
+    name: "Emily Davis",
     password: "1234",
     email: "employee4@example.com",
     tasks: [
@@ -116,9 +125,11 @@ const employees = [
         failed: true,
       },
     ],
+    taskCount: { active: 1, completed: 0, new_task: 2, failed: 1 },
   },
   {
     id: 5,
+    name: "David Wilson",
     password: "1234",
     email: "employee5@example.com",
     tasks: [
@@ -143,26 +154,27 @@ const employees = [
         failed: false,
       },
     ],
+    taskCount: { active: 1, completed: 1, new_task: 1, failed: 0 },
   },
 ];
 
 const admin = [
   {
     id: 1,
+    name: "Admin User",
     password: "1234",
     email: "admin@example.com",
   },
 ];
 
-export const localstoraheSetItems = () => {
+export const setLocalStorage = () => {
   localStorage.setItem("employees", JSON.stringify(employees));
   localStorage.setItem("admin", JSON.stringify(admin));
 };
 
-export const localstoraheGetItems = () => {
+export const getLocalStorage = () => {
   const employees = JSON.parse(localStorage.getItem("employees"));
   const admin = JSON.parse(localStorage.getItem("admin"));
 
-  console.log(employees);
-  console.log(admin);
+  return { employees, admin };
 };
