@@ -12,16 +12,16 @@ function App() {
 
   console.log(authData?.employees);
 
-//   useEffect(() => {
-//     if (!authData) return; // Ensure hooks run in the same order
+  useEffect(() => {
+    if (!authData) return; // Ensure hooks run in the same order
 
-//     const loggedInUser = localStorage.getItem("loggedInUser");
-//     if (loggedInUser) {
-//       const parsedUser = JSON.parse(loggedInUser);
-//       setUser(parsedUser.role);
-//     //   setLoggedInUserData(parsedUser); // Store full user data
-//     }
-//   }, [authData]);
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+      const parsedUser = JSON.parse(loggedInUser);
+      setUser(parsedUser.role);
+      setLoggedInUserData(parsedUser); // Store full user data
+    }
+  }, [authData]);
 
   const handleLogin = (email, password) => {
     if (!authData) {
@@ -36,7 +36,10 @@ function App() {
     if (admin) {
       setUser("admin");
       setLoggedInUserData(admin);
-      localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin" }));
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify({ role: "admin", ...admin })
+      );
       return;
     }
 
@@ -49,7 +52,7 @@ function App() {
       setLoggedInUserData(employee);
       localStorage.setItem(
         "loggedInUser",
-        JSON.stringify({ role: "employee" })
+        JSON.stringify({ role: "employee", ...employee })
       );
       return;
     }
@@ -62,7 +65,7 @@ function App() {
       {!user ? (
         <Login handleLogin={handleLogin} />
       ) : user === "admin" ? (
-        <AdminDashboard  />
+        <AdminDashboard userData={loggedInUserData} />
       ) : (
         <EmployeeDashboard userData={loggedInUserData} />
       )}
